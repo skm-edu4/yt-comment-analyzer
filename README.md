@@ -55,3 +55,11 @@ This project was a huge step up from standard coding assignments. It forced me t
    ```bash
    python main.py
    ```
+
+## 🤝 Contributors
+
+This project was originally conceptualized by Harsh Ranjan during our college studies. We developed it together as collaborative partners throughout all stages—from architecture design to implementation.
+
+Harsh Ranjan | https://github.com/HarshRanjan010
+
+College classmates working together on open-source projects.
