@@ -28,7 +28,7 @@ A high-performance automated pipeline designed to extract YouTube comments, proc
 ## 📦 Installation & Setup
 1. **Clone the Project:**
    ```bash
-   git clone https://github.com/your-username/yt-comment-analyzer.git
+   git clone https://github.com/skm-edu4/yt-comment-analyzer.git
    cd yt-comment-analyzer
    pip install -r requirements.txt
    python main.py
