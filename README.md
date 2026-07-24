@@ -1,65 +1,34 @@
-# 💬YouTube Comment Scraper 
+# 🎥 YouTube Data ETL Pipeline & Sentiment Analyzer
 
-An automated ETL (Extract, Transform, Load) pipeline built to extract raw YouTube comments and perform sentiment analysis, simplifying the process of gathering large-scale social data for analysis in tools like Excel and Power BI. I built this project for learning purposes.
+A high-performance automated pipeline designed to extract YouTube comments, process them through a SQL-based staging layer, and perform AI-driven sentiment analysis. This tool is built to bridge the gap between raw social media data and actionable insights for platforms like Power BI and Excel.
 
-## ⚙️Technologies
+## 🛠️ Tech Stack
+- **Engine:** Python 3.11+
+- **Extraction:** `yt-dlp` (High-reliability scraping)
+- **Staging:** `SQLite` (Relational storage for duplicate management)
+- **Processing:** `Pandas` (Vectorized data transformation)
+- **NLP Engine:** `VADER` (Valence Aware Dictionary and sEntiment Reasoner)
+- **Interface:** `Tkinter` (Multi-threaded GUI)
 
- * Python (the core engine)
- * SQLite (storage for raw data)
- * Pandas (Data cleaning and transformation)
- * NLTK/VADER (AI Sentiment Analysis)
- * yt-dlp (Data extraction)
- * tkinter (GUI for QOL)
+## 🚀 Key Features
+- **Smart Extraction:** Efficiently fetches comments using video URLs without requiring Google API keys.
+- **SQL Integrity:** Implements a staging database with primary key constraints to automatically handle data deduplication.
+- **Data Refining:** Cleans raw JSON responses into structured data, handling timestamps and non-standard characters.
+- **Sentiment Scoring:** Generates Positive, Negative, and Neutral polarity scores for every comment.
+- **Analytics Ready:** Instant export to UTF-8 encoded CSV files.
 
-## 🤖Features
+## ⚙️ Architecture (ETL Process)
+1. **Extract:** `yt-dlp` extracts raw JSON payloads from the target URL.
+2. **Transform:** 
+   - Raw data is cached in a local `.db` file via SQL.
+   - `Pandas` handles cleaning and formatting.
+   - `vaderSentiment` performs text analysis.
+3. **Load:** The final structured dataset is saved as a CSV for external analysis.
 
-* **Automated Extraction**: Enter a URL and a comment limit to pull unstructured data directly from YouTube.
-* **SQL Staging Layer**: Utilizes SQLite to temporarily store raw comment data. (handling duplicates via Primary Keys)
-* **Data Cleaning**: Automatically removes junk characters, formats timestamps, and strips empty spaces using Pandas.
-* **Sentiment Analysis**: Every comment is processed through the VADER NLP lexicon to assign a positive, negative, or neutral score.
-* **CSV Export**: Outputs a clean, UTF-8 encoded CSV file ready for immediate use in Power BI or SQL.
-
- ## 🫡How it Works
-
-  * **Extract**: The scraper uses yt-dlp to reliably fetch raw, unstructured JSON comment data instead of APIs with daily limits or system heavy tools like Selenium.
-  * **Transform**: First, the raw comments are temporarily saved in a local SQLite database, using Primary Keys to automatically block any duplicates. Once the data is safe pandas takes over to clean up the messy text and fix the broken timestamps. Finally, every clean comment is passed through the VADER sentiment analyzer to figure out if it is Positive, Negative, or Neutral.
-  * **Load**: The refined, structured dataset is exported as a clean, UTF-8 encoded CSV instantly ready for dashboarding in Power BI or Excel.
-
-## 🧑‍🍳The Process
-I started out just trying to pull comments without getting blocked, which is why I went with yt-dlp instead of dealing with strict API limits. Once the data actually started coming in, I realized it was completely unstructured and full of weird formatting.
-
-To handle that, I set up a local SQLite database to act as a staging area. Instead of keeping everything in a massive Python list that could crash, saving it to a local .db file let me use Primary Keys to automatically drop duplicate comments as they came in.
-
-Once the raw data was safely stored, I pulled it into Pandas. I spent most of my time here writing logic to strip out junk characters, fix the broken Unix timestamps, and get the text readable. After the text was clean, I ran it through VADER sentiment analyzer to figure out if people were being positive, negative, or neutral.
-
-And in the end, I built a simple Tkinter GUI so even others who are not familiar with using the terminal or computers in general can easily use it. I also put in some basic threading so the app wouldn't freeze up while the scraper was running in the background.
-
-## Overall Growth
-
-This project was a huge step up from standard coding assignments. It forced me to actually think about data architecture, handle weird cases in text formatting, and build a pipeline that works. Each bug I fixed helped bridge the gap between knowing the theory of databases and actually building one that works.
-
-## How can it be improved?
-
-* **Batch Saving**: Update the database to save comments in small chunks as they come in, preventing data loss if the scraper crashes midway.
-* **Smarter AI**: VADER works as intended but it has its limitations with other languages and complex sarcasm, switching it out with a local LLM to catch the tone better.
-* **Auto-Visualization**: Have the script automatically generate a basic pie chart of the positive/negative/neutral split and save it alongside the CSV.
-
-## 🚦Running this project
-
-1. Clone the repository to your local machine
-2. Install the required Python libraries (yt-dlp, pandas, vaderSentiment)
+## 📦 Installation & Setup
+1. **Clone the Project:**
    ```bash
+   git clone https://github.com/your-username/yt-comment-analyzer.git
+   cd yt-comment-analyzer
    pip install -r requirements.txt
-   ```
-3. Run the main Python script:
-   ```bash
    python main.py
-   ```
-
-## 🤝 Contributors
-
-This project was originally conceptualized by Harsh Ranjan during our college studies. We developed it together as collaborative partners throughout all stages—from architecture design to implementation.
-
-Harsh Ranjan | https://github.com/HarshRanjan010
-
-College classmates working together on open-source projects.
